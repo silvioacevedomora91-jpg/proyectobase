@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vagabond</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #f3ecdf;
+    --papel-2: #e8dfcd;
+    --tinta: #1b1915;
+    --tinta-suave: #4a453c;
+    --sello: #a8281e;
+    --linea: #cfc4ae;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --papel: #16140f;
+      --papel-2: #211e17;
+      --tinta: #ece4d4;
+      --tinta-suave: #b3a993;
+      --sello: #d4493c;
+      --linea: #3a3428;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: "Shippori Mincho", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  a { color: var(--sello); }
+  .envoltura { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+  /* Portada */
+  header {
+    min-height: 92vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--linea);
+  }
+  header svg.fondo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    color: var(--tinta); opacity: .9;
+  }
+  .titulo { position: relative; padding: 40px 16px; }
+  .titulo .kanji {
+    font-size: clamp(64px, 16vw, 150px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: .05em;
+  }
+  .titulo h1 {
+    margin: 12px 0 4px;
+    font-size: clamp(30px, 7vw, 56px);
+    letter-spacing: .35em;
+    font-weight: 700;
+    padding-left: .35em;
+  }
+  .titulo p { margin: 0; color: var(--tinta-suave); }
+  .sello {
+    display: inline-block;
+    margin-top: 22px;
+    background: var(--sello);
+    color: #fff4ea;
+    padding: 6px 12px;
+    font-size: 15px;
+    letter-spacing: .1em;
+    transform: rotate(-2deg);
+  }
+
+  nav {
+    position: sticky; top: 0; z-index: 5;
+    background: color-mix(in srgb, var(--papel) 92%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--linea);
+  }
+  nav ul {
+    list-style: none; margin: 0 auto; padding: 10px 16px;
+    max-width: 960px;
+    display: flex; gap: 20px; overflow-x: auto;
+    font-size: 15px;
+  }
+  nav a { color: var(--tinta); text-decoration: none; white-space: nowrap; }
+  nav a:hover { color: var(--sello); }
+
+  section { padding: 64px 0; border-bottom: 1px solid var(--linea); }
+  h2 {
+    font-size: 30px; margin: 0 0 20px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 small { font-size: 16px; color: var(--sello); font-weight: 400; }
+  p { margin: 0 0 16px; }
+
+  .ficha {
+    display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start;
+  }
+  @media (min-width: 720px) { .ficha { grid-template-columns: 280px 1fr; } }
+  dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; }
+  dt { color: var(--tinta-suave); }
+  dd { margin: 0; }
+
+  /* Imágenes con respaldo */
+  figure { margin: 0; }
+  .marco {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background: var(--papel-2);
+    border: 1px solid var(--linea);
+    overflow: hidden;
+  }
+  .marco.ancho { aspect-ratio: 16 / 9; }
+  .marco svg, .marco img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+  .marco svg { color: var(--tinta); }
+  .marco img { object-fit: cover; }
+  figcaption { font-size: 14px; color: var(--tinta-suave); margin-top: 8px; }
+
+  .personajes {
+    display: grid; gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  .personaje h3 { margin: 12px 0 4px; font-size: 20px; }
+  .personaje p { font-size: 16px; margin: 0; }
+
+  .cita {
+    font-size: clamp(22px, 4vw, 30px);
+    text-align: center;
+    max-width: 680px; margin: 0 auto;
+    line-height: 1.5;
+  }
+  .cita span { display: block; font-size: 15px; color: var(--tinta-suave); margin-top: 12px; }
+
+  ol.linea { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--tinta); }
+  ol.linea li { padding: 0 0 18px 20px; position: relative; }
+  ol.linea li::before {
+    content: ""; position: absolute; left: -7px; top: 9px;
+    width: 12px; height: 12px; background: var(--sello); border-radius: 50%;
+  }
+  ol.linea b { display: block; }
+
+  footer { padding: 40px 0 60px; font-size: 14px; color: var(--tinta-suave); }
+  footer code { background: var(--papel-2); padding: 1px 5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="fondo" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="pincel"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="4"/><feDisplacementMap in="SourceGraphic" scale="14"/></filter>
+    </defs>
+    <circle cx="880" cy="250" r="150" fill="none" stroke="currentColor" stroke-width="22" stroke-dasharray="820 160" filter="url(#pincel)" opacity=".85" transform="rotate(-70 880 250)"/>
+    <path d="M0 640 L180 520 L300 590 L470 440 L620 560 L760 470 L930 600 L1080 500 L1200 560 L1200 800 L0 800 Z" fill="currentColor" opacity=".1" filter="url(#pincel)"/>
+    <path d="M0 700 L220 600 L400 680 L560 590 L760 690 L980 610 L1200 690 L1200 800 L0 800 Z" fill="currentColor" opacity=".16" filter="url(#pincel)"/>
+  </svg>
+  <div class="titulo">
+    <div class="kanji">バガボンド</div>
+    <h1>VAGABOND</h1>
+    <p>Takehiko Inoue · desde 1998</p>
+    <div class="sello">Manga · Seinen · Samuráis</div>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#obra">La obra</a></li>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#personajes">Personajes</a></li>
+    <li><a href="#musashi">El Musashi real</a></li>
+    <li><a href="#datos">Datos</a></li>
+  </ul>
+</nav>
+
+<main class="envoltura">
+
+  <section id="obra">
+    <h2>La obra <small>概要</small></h2>
+    <div class="ficha">
+      <figure>
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <circle cx="150" cy="140" r="80" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="420 90" filter="url(#pincel)"/>
+            <path d="M60 330 L250 110" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+            <path d="M80 308 L105 333" stroke="currentColor" stroke-width="14" stroke-linecap="round"/>
+            <text x="150" y="380" text-anchor="middle" font-size="16" fill="currentColor" opacity=".6">img/portada.jpg</text>
+          </svg>
+          <img src="img/portada.jpg" alt="Portada de Vagabond" onerror="this.remove()">
+        </div>
+        <figcaption>Portada del primer tomo</figcaption>
+      </figure>
+      <div>
+        <p><em>Vagabond</em> es un manga de Takehiko Inoue, el mismo autor de <em>Slam Dunk</em>. Cuenta una versión libre de la vida de Miyamoto Musashi, el espadachín más famoso de Japón, y se basa en la novela <em>Musashi</em> de Eiji Yoshikawa, publicada por entregas entre 1935 y 1939.</p>
+        <p>Se publica en la revista <em>Weekly Morning</em> de Kodansha desde 1998. Lleva 37 tomos y está en pausa desde 2015, sin final por ahora.</p>
+        <p>Lo que más se suele destacar es el dibujo: Inoue fue pasando de la plumilla al pincel y la tinta, y muchas páginas parecen pinturas. La historia se centra menos en las peleas y más en qué significa ser fuerte y qué le cuesta a Musashi conseguirlo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="historia">
+    <h2>Historia <small>物語</small></h2>
+    <figure style="margin-bottom:28px">
+      <div class="marco ancho">
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="1600" height="900" fill="currentColor" opacity=".04"/>
+          <path d="M0 620 Q 400 520 800 600 T 1600 560 L1600 900 L0 900 Z" fill="currentColor" opacity=".12" filter="url(#pincel)"/>
+          <g fill="currentColor" opacity=".55">
+            <rect x="300" y="430" width="6" height="200"/><rect x="420" y="460" width="6" height="170"/>
+            <rect x="560" y="420" width="6" height="210"/><rect x="1050" y="440" width="6" height="190"/>
+            <rect x="1200" y="410" width="6" height="220"/>
+          </g>
+          <g fill="var(--sello)" opacity=".8">
+            <path d="M306 430 l50 14 l-50 14z"/><path d="M426 460 l44 12 l-44 12z"/>
+            <path d="M1206 410 l50 14 l-50 14z"/>
+          </g>
+          <circle cx="1300" cy="180" r="70" fill="var(--sello)" opacity=".75"/>
+          <text x="800" y="860" text-anchor="middle" font-size="26" fill="currentColor" opacity=".6">img/sekigahara.jpg</text>
+        </svg>
+        <img src="img/sekigahara.jpg" alt="Escena de la batalla de Sekigahara" onerror="this.remove()">
+      </div>
+      <figcaption>Año 1600, después de Sekigahara</figcaption>
+    </figure>
+    <p>La historia arranca en 1600, justo después de la batalla de Sekigahara. Shinmen Takezō, un chico de diecisiete años violento y temido en su pueblo, ha ido a la guerra con su amigo Hon'iden Matahachi buscando fama. Están en el bando que pierde y acaban medio muertos entre los cadáveres.</p>
+    <p>Takezō vuelve a su aldea convertido en fugitivo. El monje Takuan lo atrapa, lo cuelga de un árbol y le hace replantearse su vida. De ahí sale con un nombre nuevo, Miyamoto Musashi, y una idea fija: ser invencible bajo el cielo.</p>
+    <p>A partir de ahí el manga sigue su camino de duelo en duelo: la escuela Yoshioka de Kioto, los lanceros del templo Hōzōin, el clan Yagyū. En paralelo, una parte larga de la obra cuenta la vida de Sasaki Kojirō, su gran rival. Los últimos tomos publicados cambian el ritmo por completo y muestran a Musashi trabajando la tierra en una aldea.</p>
+  </section>
+
+  <section id="personajes">
+    <h2>Personajes <small>人物</small></h2>
+    <div class="personajes">
+
+      <div class="personaje">
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <circle cx="150" cy="130" r="48" fill="currentColor" opacity=".85" filter="url(#pincel)"/>
+            <path d="M70 400 Q 150 190 230 400 Z" fill="currentColor" opacity=".85" filter="url(#pincel)"/>
+            <path d="M60 230 L250 180 M70 260 L240 205" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <text x="150" y="385" text-anchor="middle" font-size="15" fill="var(--papel)">img/musashi.jpg</text>
+          </svg>
+          <img src="img/musashi.jpg" alt="Miyamoto Musashi en Vagabond" onerror="this.remove()">
+        </div>
+        <h3>Miyamoto Musashi</h3>
+        <p>El protagonista. Empieza como Takezō, un salvaje que solo sabe pelear, y poco a poco busca un tipo de fuerza que no dependa de matar.</p>
+      </div>
+
+      <div class="personaje">
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <circle cx="150" cy="130" r="46" fill="currentColor" opacity=".85" filter="url(#pincel)"/>
+            <path d="M80 400 Q 150 200 220 400 Z" fill="currentColor" opacity=".85" filter="url(#pincel)"/>
+            <path d="M40 300 L270 90" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+            <text x="150" y="385" text-anchor="middle" font-size="15" fill="var(--papel)">img/kojiro.jpg</text>
+          </svg>
+          <img src="img/kojiro.jpg" alt="Sasaki Kojirō en Vagabond" onerror="this.remove()">
+        </div>
+        <h3>Sasaki Kojirō</h3>
+        <p>El rival. En este manga es sordo, y su talento con la espada larga nace de una forma de ver el mundo muy distinta a la de Musashi.</p>
+      </div>
+
+      <div class="personaje">
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <circle cx="150" cy="130" r="44" fill="currentColor" opacity=".8" filter="url(#pincel)"/>
+            <path d="M85 400 Q 150 210 215 400 Z" fill="currentColor" opacity=".8" filter="url(#pincel)"/>
+            <circle cx="230" cy="90" r="18" fill="var(--sello)" opacity=".8"/>
+            <text x="150" y="385" text-anchor="middle" font-size="15" fill="var(--papel)">img/otsu.jpg</text>
+          </svg>
+          <img src="img/otsu.jpg" alt="Otsū en Vagabond" onerror="this.remove()">
+        </div>
+        <h3>Otsū</h3>
+        <p>Huérfana criada en el templo del pueblo. Estaba prometida con Matahachi y acaba unida a Musashi, aunque él no sabe qué hacer con ese vínculo.</p>
+      </div>
+
+      <div class="personaje">
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <circle cx="150" cy="135" r="50" fill="currentColor" opacity=".75" filter="url(#pincel)"/>
+            <path d="M65 400 Q 150 190 235 400 Z" fill="currentColor" opacity=".75" filter="url(#pincel)"/>
+            <text x="150" y="385" text-anchor="middle" font-size="15" fill="var(--papel)">img/matahachi.jpg</text>
+          </svg>
+          <img src="img/matahachi.jpg" alt="Hon'iden Matahachi en Vagabond" onerror="this.remove()">
+        </div>
+        <h3>Hon'iden Matahachi</h3>
+        <p>El amigo de la infancia. Débil y mentiroso, vive a la sombra de Musashi. Es quizá el personaje más humano de la obra.</p>
+      </div>
+
+      <div class="personaje">
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <circle cx="150" cy="130" r="46" fill="none" stroke="currentColor" stroke-width="9" filter="url(#pincel)"/>
+            <path d="M75 400 Q 150 200 225 400 Z" fill="currentColor" opacity=".7" filter="url(#pincel)"/>
+            <text x="150" y="385" text-anchor="middle" font-size="15" fill="var(--papel)">img/takuan.jpg</text>
+          </svg>
+          <img src="img/takuan.jpg" alt="Takuan en Vagabond" onerror="this.remove()">
+        </div>
+        <h3>Takuan</h3>
+        <p>Monje zen burlón y sabio. Es quien le da a Takezō la oportunidad de empezar de nuevo.</p>
+      </div>
+
+      <div class="personaje">
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <circle cx="150" cy="130" r="46" fill="currentColor" opacity=".85" filter="url(#pincel)"/>
+            <path d="M75 400 Q 150 200 225 400 Z" fill="currentColor" opacity=".85" filter="url(#pincel)"/>
+            <path d="M90 240 L210 240" stroke="var(--sello)" stroke-width="5"/>
+            <text x="150" y="385" text-anchor="middle" font-size="15" fill="var(--papel)">img/seijuro.jpg</text>
+          </svg>
+          <img src="img/seijuro.jpg" alt="Yoshioka Seijūrō en Vagabond" onerror="this.remove()">
+        </div>
+        <h3>Yoshioka Seijūrō</h3>
+        <p>Heredero de la escuela Yoshioka de Kioto. Su enfrentamiento con Musashi marca el destino de la escuela.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <p class="cita">«Invencible bajo el cielo.»<span>La meta que se pone Musashi al principio del manga, y la que más tarde empieza a poner en duda.</span></p>
+  </section>
+
+  <section id="musashi">
+    <h2>El Musashi real <small>宮本武蔵</small></h2>
+    <div class="ficha">
+      <figure>
+        <div class="marco">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="currentColor" opacity=".05"/>
+            <path d="M95 330 L120 90 M205 330 L180 90" stroke="currentColor" stroke-width="7" stroke-linecap="round" filter="url(#pincel)"/>
+            <circle cx="150" cy="200" r="20" fill="var(--sello)" opacity=".85"/>
+            <text x="150" y="385" text-anchor="middle" font-size="15" fill="currentColor" opacity=".6">img/musashi-real.jpg</text>
+          </svg>
+          <img src="img/musashi-real.jpg" alt="Retrato histórico de Miyamoto Musashi" onerror="this.remove()">
+        </div>
+        <figcaption>Musashi luchaba con dos espadas a la vez</figcaption>
+      </figure>
+      <div>
+        <p>Miyamoto Musashi existió de verdad. Vivió más o menos entre 1584 y 1645 y se le atribuyen más de sesenta duelos sin una sola derrota.</p>
+        <ol class="linea">
+          <li><b>1600 · Sekigahara</b>Según la tradición, combate de joven en esta batalla, la misma con la que empieza el manga.</li>
+          <li><b>1604 · Escuela Yoshioka</b>Se enfrenta en Kioto a los maestros de esta escuela de esgrima.</li>
+          <li><b>1612 · Ganryūjima</b>Su duelo más famoso: vence a Sasaki Kojirō en una pequeña isla, según la leyenda con una espada de madera tallada de un remo.</li>
+          <li><b>1645 · El libro de los cinco anillos</b>Poco antes de morir escribe <em>Gorin no Sho</em>, un tratado de estrategia que todavía se lee hoy.</li>
+        </ol>
+        <p>También fue pintor y calígrafo, y fundó el estilo de dos espadas Niten Ichi-ryū.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="datos">
+    <h2>Datos <small>情報</small></h2>
+    <dl>
+      <dt>Autor</dt><dd>Takehiko Inoue</dd>
+      <dt>Basado en</dt><dd><em>Musashi</em>, novela de Eiji Yoshikawa</dd>
+      <dt>Revista</dt><dd>Weekly Morning (Kodansha)</dd>
+      <dt>Inicio</dt><dd>1998</dd>
+      <dt>Estado</dt><dd>En pausa desde 2015</dd>
+      <dt>Tomos</dt><dd>37</dd>
+      <dt>Ventas</dt><dd>Más de 80 millones de copias</dd>
+      <dt>En inglés</dt><dd>Viz Media</dd>
+      <dt>Premios</dt><dd>Premio Manga Kodansha (2000), Gran Premio del Japan Media Arts Festival (2000), Gran Premio Cultural Osamu Tezuka (2002)</dd>
+    </dl>
+  </section>
+
+</main>
+
+<footer class="envoltura">
+  <p>Página hecha por afición, sin relación con el autor ni la editorial. <em>Vagabond</em> © Takehiko Inoue / I.T. Planning, Inc.</p>
+  <p>Para poner fotos reales, crea una carpeta <code>img</code> junto a este archivo y guarda dentro: <code>portada.jpg</code>, <code>sekigahara.jpg</code>, <code>musashi.jpg</code>, <code>kojiro.jpg</code>, <code>otsu.jpg</code>, <code>matahachi.jpg</code>, <code>takuan.jpg</code>, <code>seijuro.jpg</code> y <code>musashi-real.jpg</code>. Las que falten se muestran como ilustración de tinta.</p>
+</footer>
+
+</body>
+</html>
